@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Linter (flake8)
+        run: flake8 .
+
+      - name: Testes (pytest)
+        run: pytest -v
+
+      - name: Migrações do banco (Alembic)
+        run: alembic upgrade head
+
+      - name: Executar main.py (smoke test ponta a ponta)
+        run: python main.py
+
+      - name: Publicar app.log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-log
+          path: app.log
