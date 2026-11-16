@@ -86,4 +86,8 @@ O sumário final mostra total, aprovados, rejeitados, erros e tempo total em ms
 
 ## Integrantes
 
-<João Gabriel Alves Lima>
+- Isabella Mozzer
+- João Gabriel
+- Lívia Ayumi
+- Luis Felipe
+- Mariana Melendez
